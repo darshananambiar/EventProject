@@ -1,0 +1,32 @@
+{% extends 'scheduler/base.html' %}
+
+{% block content %}
+
+<div class="max-w-7xl mx-auto">
+    
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">Speakers</h1>
+        <a href="{% url 'create_speaker' %}" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+            Add New Speaker
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for speaker in speakers %}
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <div class="p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-2">{{ speaker.name }}</h2>
+                    <p class="text-gray-600 text-sm mb-4">{{ speaker.bio|truncatewords:30 }}</p>
+                    <div class="text-sm text-gray-500">
+                        <p>Email: {{ speaker.email }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-span-full text-center py-12">
+                <p class="text-gray-600">No speakers found. Add your first speaker!</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %} 

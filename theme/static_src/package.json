@@ -1,0 +1,14 @@
+{
+  "name": "static_src",
+  "version": "1.0.0",
+  "description": "Theme package for Event Website",
+  "scripts": {
+    "build": "tailwindcss -i ./src/styles.css -o ../static/css/styles.css --minify",
+    "dev": "tailwindcss -i ./src/styles.css -o ../static/css/styles.css --watch"
+  },
+  "dependencies": {
+    "tailwindcss": "^3.3.0",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.21"
+  }
+}

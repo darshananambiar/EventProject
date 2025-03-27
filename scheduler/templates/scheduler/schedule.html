@@ -1,0 +1,47 @@
+{% extends 'scheduler/base.html' %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 space-y-4 sm:space-y-0">
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">Event Schedule</h1>
+        <div class="flex space-x-2">
+            <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">Today</button>
+            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors duration-200 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">Week</button>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
+    {% for event in events %}
+        <div class="bg-white rounded-lg shadow-md p-4 sm:p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            <div class="flex justify-between items-start mb-3">
+                <h2 class="text-lg sm:text-xl font-semibold text-gray-900">{{ event.title }}</h2>
+                <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">Active</span>
+            </div>
+            <p class="text-gray-600 mb-4 text-sm">{{ event.description }}</p>
+            
+            <div class="space-y-3">
+                {% for session in event.sessions.all %}
+                    <div class="border-l-4 border-blue-500 pl-3 sm:pl-4 py-3 sm:py-4">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-base sm:text-lg font-medium text-gray-900">{{ session.title }}</h3>
+                                <p class="text-gray-600 mt-1 text-sm">{{ session.description }}</p>
+                                <div class="mt-2 text-xs sm:text-sm text-gray-500">
+                                    <p>Speaker: {{ session.speaker.name }}</p>
+                                    <p>Time: {{ session.start_time|date:"F j, Y g:i A" }} - {{ session.end_time|date:"g:i A" }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="text-gray-600 text-center py-4">No sessions scheduled for this event.</p>
+                {% endfor %}
+            </div>
+        </div>
+    {% empty %}
+        <div class="text-center py-12">
+            <p class="text-gray-600">No events found. Create your first event!</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
